@@ -1,0 +1,37 @@
+/* style.css - clean, limited color palette (green, white, gold, black) */
+:root{
+  --green:#2e7d32;
+  --gold:#c9a34a;
+  --muted:#f6f6f6;
+  --card-bg: #ffffff;
+  --text:#222;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: Inter, system-ui, Arial;
+  background:var(--muted);
+  color:var(--text);
+  margin:0;
+  padding:2rem;
+}
+
+.container{max-width:720px;margin:0 auto;}
+
+h1{display:flex;align-items:center;gap:.5rem}
+.card{background:var(--card-bg);padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.06);margin-bottom:1rem}
+
+label{display:block;margin-bottom:.5rem}
+input[type="text"], textarea{
+  width:100%;padding:.5rem;border:1px solid #ddd;border-radius:8px;margin-top:.25rem;
+}
+
+button{
+  background:var(--green);color:white;padding:.6rem .9rem;border-radius:8px;border:0;cursor:pointer;margin-top:.5rem;
+}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.task-card{padding:.8rem;border-radius:10px;background:white;border:1px solid #eee}
+.task-card h3{margin:.1rem 0 .4rem 0}
+.meta{font-size:.85rem;color:#666}
+.done-btn{background:var(--gold);border:0;padding:.4rem .6rem;border-radius:6px;cursor:pointer;margin-top:.5rem}

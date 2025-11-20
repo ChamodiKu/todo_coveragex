@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: todo_db
+      MYSQL_USER: todo_user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: todo_user
+      PMA_PASSWORD: secret
+    depends_on:
+      - mysql
+
+  php-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "8005:8005"
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=todo_db
+      - DB_USERNAME=todo_user
+      - DB_PASSWORD=secret
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - php-app
+
+volumes:
+  db_data:
